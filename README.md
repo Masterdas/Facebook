@@ -29,13 +29,14 @@ exit
 ```
 facebook
 ```
+---
 
-### Instagram Delete and Remove Comment
+### Facebook Delete and Remove Comment
 ```
 delete-facebook
 ```
 
-
+---
 
 ## 📌 Contact Me  
 
